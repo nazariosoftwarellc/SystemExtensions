@@ -10,7 +10,7 @@ import Combine
 
 extension NSItemProvider {
     
-    @available(macOS 10.15, *)
+    @available(macOS 10.15, iOS 13.0, *)
     func loadItem(forTypeIdentifier identifier: String, options: [AnyHashable : Any]?) -> PassthroughSubject<NSSecureCoding?, Error> {
         let subject = PassthroughSubject<NSSecureCoding?, Error>()
         loadItem(forTypeIdentifier: identifier, options: options) { content, error in
