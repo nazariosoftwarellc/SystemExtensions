@@ -1,4 +1,4 @@
-public struct SystemExtensions {
+public struct NZSSystemExtensions {
     public private(set) var text = "Hello, World!"
 
     public init() {

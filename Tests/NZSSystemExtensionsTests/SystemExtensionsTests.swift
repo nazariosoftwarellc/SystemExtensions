@@ -1,11 +1,11 @@
 import XCTest
-@testable import SystemExtensions
+@testable import NZSSystemExtensions
 
-final class SystemExtensionsTests: XCTestCase {
+final class NZSSystemExtensionsTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(SystemExtensions().text, "Hello, World!")
+        XCTAssertEqual(NZSSystemExtensions().text, "Hello, World!")
     }
 }
