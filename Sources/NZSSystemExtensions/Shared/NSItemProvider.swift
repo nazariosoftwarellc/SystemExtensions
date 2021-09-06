@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 public extension NSItemProvider {
-    @available(macOS 10.15, iOS 13.0, *)
     func loadItem(
         forTypeIdentifier identifier: String,
         options: [AnyHashable: Any]?
