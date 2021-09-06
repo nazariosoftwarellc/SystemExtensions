@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-extension NSItemProvider {
+public extension NSItemProvider {
     @available(macOS 10.15, iOS 13.0, *)
     func loadItem(
         forTypeIdentifier identifier: String,

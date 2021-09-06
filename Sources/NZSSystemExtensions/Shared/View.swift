@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(macOS 10.15, iOS 13.0, *)
-extension View {
+public extension View {
     func eraseToAnyView() -> AnyView {
         AnyView(self)
     }
