@@ -1,5 +1,5 @@
-import XCTest
 @testable import NZSSystemExtensions
+import XCTest
 
 final class NZSSystemExtensionsTests: XCTestCase {
     func testExample() throws {

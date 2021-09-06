@@ -5,13 +5,15 @@
 //  Created by Kyle Nazario on 9/1/21.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 extension NSItemProvider {
-    
     @available(macOS 10.15, iOS 13.0, *)
-    func loadItem(forTypeIdentifier identifier: String, options: [AnyHashable : Any]?) -> PassthroughSubject<NSSecureCoding?, Error> {
+    func loadItem(
+        forTypeIdentifier identifier: String,
+        options: [AnyHashable: Any]?
+    ) -> PassthroughSubject<NSSecureCoding?, Error> {
         let subject = PassthroughSubject<NSSecureCoding?, Error>()
         loadItem(forTypeIdentifier: identifier, options: options) { content, error in
             if let error = error {
