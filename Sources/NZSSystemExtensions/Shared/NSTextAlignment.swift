@@ -9,10 +9,9 @@ import SwiftUI
 #if os(macOS)
 import AppKit
 public typealias UserInterfaceLayoutDirection = NSUserInterfaceLayoutDirection
-#else
+#else if !os(watchOS)
 import UIKit
 public typealias UserInterfaceLayoutDirection = UIUserInterfaceLayoutDirection
-#endif
 
 public extension NSTextAlignment {
     init(textAlignment: TextAlignment, userInterfaceLayoutDirection direction: UserInterfaceLayoutDirection) {
@@ -30,3 +29,4 @@ public extension NSTextAlignment {
         }
     }
 }
+#endif
