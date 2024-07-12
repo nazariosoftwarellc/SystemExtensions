@@ -9,7 +9,7 @@ import SwiftUI
 
 #if os(macOS)
 struct AboutAppButton: View {
-    private static let year = 2024
+    private static let year = Calendar.current.component(.year, from: Date())
     private static let location = "Logan, Utah"
     
     let appName: String
