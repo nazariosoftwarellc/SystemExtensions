@@ -8,6 +8,9 @@
 import SwiftUI
 
 public struct InvisibleView: View {
+    
+    public init() {}
+    
     public var body: some View {
         Rectangle()
             .frame(width: 0, height: 0)
