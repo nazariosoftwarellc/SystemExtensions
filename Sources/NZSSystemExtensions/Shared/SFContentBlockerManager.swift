@@ -5,6 +5,7 @@
 //  Created by Kyle Nazario on 2/28/21.
 //
 
+#if !os(watchOS)
 import Combine
 import SafariServices
 
@@ -36,3 +37,4 @@ public extension SFContentBlockerManager {
         return stateTracker.eraseToAnyPublisher()
     }
 }
+#endif
