@@ -14,7 +14,7 @@ public struct AboutAppButton: View {
     
     let appName: String
     
-    public init(appName: String) {
+    public init(_ appName: String) {
         self.appName = appName
     }
     
