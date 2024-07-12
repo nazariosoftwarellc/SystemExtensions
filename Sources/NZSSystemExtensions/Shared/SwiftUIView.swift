@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InvisibleView: View {
+public struct InvisibleView: View {
     var body: some View {
         Rectangle()
             .frame(width: 0, height: 0)
