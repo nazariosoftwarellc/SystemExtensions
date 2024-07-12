@@ -19,13 +19,13 @@ public struct AboutAppButton: View {
     }
     
     public var body: some View {
-        Button("About \(appName)", perform: openAboutPanel)
+        Button("About \(appName)", action: openAboutPanel)
     }
     
     public func openAboutPanel() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
-            NSApplication.AboutPanelOptionKey.credits: NSAttributedString(string: "Made with ❤️ in \(location)"),
-            NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© \(year) Nazario Software LLC"
+            NSApplication.AboutPanelOptionKey.credits: NSAttributedString(string: "Made with ❤️ in \(AboutAppButton.location)"),
+            NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© \(AboutAppButton.year) Nazario Software LLC"
         ])
     }
 }
