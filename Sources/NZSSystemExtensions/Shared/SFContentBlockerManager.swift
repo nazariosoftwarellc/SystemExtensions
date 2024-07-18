@@ -36,5 +36,17 @@ public extension SFContentBlockerManager {
         }
         return stateTracker.eraseToAnyPublisher()
     }
+    
+    static func getStateOfContentBlocker(withIdentifier identifier: String) async throws -> {
+        return await try withCheckedThrowingContinuation { continuation in
+            SFContentBlockerManager.getStateOfContentBlocker(withIdentifier: identifier) { state, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: state)
+                }
+            }
+        }
+    }
 }
 #endif
