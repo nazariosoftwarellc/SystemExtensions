@@ -67,7 +67,7 @@ public struct NZSAppList: View {
         var body: some View {
             Button(action: {
                 guard let url = URL(string: appLink.href) else { return }
-                SystemFramework.shared.open(url)
+                FrameworkApplication.shared.open(url)
             }) {
                 Text(appLink.name)
             }
