@@ -37,7 +37,7 @@ public final class NZSAppListViewModel: ObservableObject {
         }
     }
     
-    private func getAppLinks() async throws {
+    private func getAppLinks() async throws -> [NZSAppLink] {
         let appJSONURL = URL(string: "https://github.com/nazariosoftwarellc/nazariosoftwarellc.github.io/raw/refs/heads/main/assets/json/app-list.json")!
         let (data, _) = try await URLSession.shared.data(from: appJSONURL)
         let decoder = JSONDecoder()
