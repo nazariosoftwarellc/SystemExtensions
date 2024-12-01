@@ -8,7 +8,7 @@
 import SwiftUI
 #if os(macOS)
 import AppKit
-typealias FrameworkApplication = NSApplication
+typealias FrameworkApplication = NSWorkspace
 #else
 import UIKit
 typealias FrameworkApplication = UIApplication
@@ -52,12 +52,14 @@ public struct NZSAppList: View {
     
     public var body: some View {
         VStack {
-            Text("More great apps from Nazario Software")
-                .font(.title)
-                .padding(.bottom)
+            Text("More great apps from Nazario Software:")
+                .font(.body)
+                .padding(.top)
             List(viewModel.appLinks) { appLink in
                 AppLinkItem(appLink: appLink)
             }
+            .padding(.horizontal)
+            .padding(.bottom)
         }
     }
     
@@ -69,7 +71,22 @@ public struct NZSAppList: View {
                 guard let url = URL(string: appLink.href) else { return }
                 FrameworkApplication.shared.open(url)
             }) {
-                Text(appLink.name)
+                VStack(alignment: .leading) {
+                    getColorHighlightedText(content: appLink.name, color: .blue)
+                    getColorHighlightedText(content: appLink.description, color: .secondary)
+                        .font(.caption)
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+        
+        private func getColorHighlightedText(content: String, color: Color) -> some View {
+            if #available(macOS 14.0, *) {
+                Text(content)
+                    .foregroundStyle(color)
+            } else {
+                Text(content)
+                    .foregroundColor(color)
             }
         }
     }
