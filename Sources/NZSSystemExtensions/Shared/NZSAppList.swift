@@ -46,7 +46,7 @@ public final class NZSAppListViewModel: ObservableObject {
 }
 
 public struct NZSAppList: View {
-    @StateObject private var viewModel = NZSAppListViewModel()
+    @ObservedObject private var viewModel = NZSAppListViewModel()
     
     public init() {}
     
