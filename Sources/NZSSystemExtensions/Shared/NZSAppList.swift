@@ -15,7 +15,7 @@ typealias FrameworkApplication = UIApplication
 #endif
 
 public final class NZSAppListViewModel: ObservableObject {
-    struct NZSAppLink: Identifiable {
+    struct NZSAppLink: Identifiable, Codable {
         let name: String
         let href: String
         let description: String
