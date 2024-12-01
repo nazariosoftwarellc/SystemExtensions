@@ -24,12 +24,14 @@ public final class NZSAppListViewModel: ObservableObject {
     
     @Published var appLinks: [NZSAppLink] = []
     
-    public init() {
+    public init(filteringAppNames: [String] = []) {
         Task {
             do {
                 let appLinks = try await self.getAppLinks()
                 DispatchQueue.main.async {
-                    self.appLinks = appLinks
+                    self.appLinks = appLinks.filter { appLink in
+                        !filteringAppNames.contains(appLink.name)
+                    }
                 }
             } catch {
                 print("Error loading app links: \(error)")
@@ -46,9 +48,11 @@ public final class NZSAppListViewModel: ObservableObject {
 }
 
 public struct NZSAppList: View {
-    @ObservedObject private var viewModel = NZSAppListViewModel()
+    @ObservedObject private var viewModel: NZSAppListViewModel
     
-    public init() {}
+    public init(filteringAppNames: [String] = []) {
+        self._viewModel = ObservedObject(wrappedValue: NZSAppListViewModel(filteringAppNames: filteringAppNames))
+    }
     
     public var body: some View {
         VStack {
