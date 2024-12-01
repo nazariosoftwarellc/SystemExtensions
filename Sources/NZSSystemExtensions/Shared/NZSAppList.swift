@@ -27,7 +27,7 @@ public final class NZSAppListViewModel: ObservableObject {
     public init() {
         Task {
             do {
-                let appLinks = try await loadAppLinks()
+                let appLinks = try await self.getAppLinks()
                 DispatchQueue.main.async {
                     self.appLinks = appLinks
                 }
@@ -37,7 +37,7 @@ public final class NZSAppListViewModel: ObservableObject {
         }
     }
     
-    func getAppLinks() async throws {
+    private func getAppLinks() async throws {
         let appJSONURL = URL(string: "https://github.com/nazariosoftwarellc/nazariosoftwarellc.github.io/raw/refs/heads/main/assets/json/app-list.json")!
         let (data, _) = try await URLSession.shared.data(from: appJSONURL)
         let decoder = JSONDecoder()
