@@ -8,10 +8,10 @@
 import SwiftUI
 #if os(macOS)
 import AppKit
-typealias SystemFramework = AppKit
+typealias FrameworkApplication = NSApplication
 #else
 import UIKit
-typealias SystemFramework = UIKit
+typealias FrameworkApplication = UIApplication
 #endif
 
 public final class NZSAppListViewModel: ObservableObject {
