@@ -50,7 +50,7 @@ public struct NZSAppList: View {
     
     public init() {}
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Text("More great apps from Nazario Software")
                 .font(.title)
