@@ -24,7 +24,7 @@ public final class NZSAppListViewModel: ObservableObject {
     
     @Published var appLinks: [NZSAppLink] = []
     
-    init() {
+    public init() {
         Task {
             do {
                 let appLinks = try await loadAppLinks()
@@ -47,6 +47,8 @@ public final class NZSAppListViewModel: ObservableObject {
 
 public struct NZSAppList: View {
     @StateObject private var viewModel = NZSAppListViewModel()
+    
+    public init() {}
     
     var body: some View {
         VStack {
