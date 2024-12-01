@@ -19,10 +19,10 @@ public struct AboutAppButton: View {
     }
     
     public var body: some View {
-        Button("About \(appName)", action: openAboutPanel)
+        Button("About \(appName)", action: AboutAppButton.openAboutPanel)
     }
     
-    public func openAboutPanel() {
+    public static func openAboutPanel() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             NSApplication.AboutPanelOptionKey.credits: NSAttributedString(string: "Made with ❤️ in \(AboutAppButton.location)"),
             NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© \(AboutAppButton.year) Nazario Software LLC"
