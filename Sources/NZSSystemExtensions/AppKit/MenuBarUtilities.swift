@@ -29,4 +29,27 @@ public struct AboutAppButton: View {
         ])
     }
 }
+
+public struct NZSMoreAppsButton: View {
+    private let title = "More Nazario Software Apps"
+    
+    let filteringAppNames: [String]
+    
+    public var body: some View {
+        Button("\(title)...") {
+            NZSMoreAppsButton.openMoreAppsPanel(filteringAppNames: filteringAppNames)
+        }
+    }
+    
+    public static func openMoreAppsPanel(filteringAppNames: [String]) {
+        let controller = NSHostingController(
+            rootView: NZSAppList(filteringAppNames: filteringAppNames)
+                .frame(width: 350, height: 250)
+        )
+        let window = NSWindow(contentViewController: controller)
+        window.title = title
+        window.center()
+        window.makeKeyAndOrderFront(nil)
+    }
+}
 #endif
