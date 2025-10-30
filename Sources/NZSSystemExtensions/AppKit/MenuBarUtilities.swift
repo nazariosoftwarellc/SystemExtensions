@@ -35,6 +35,10 @@ public struct NZSMoreAppsButton: View {
     
     let filteringAppNames: [String]
     
+    public init(filteringAppNames: [String]) {
+        self.filteringAppNames = filteringAppNames
+    }
+    
     public var body: some View {
         Button("\(NZSMoreAppsButton.title)...") {
             NZSMoreAppsButton.openMoreAppsPanel(filteringAppNames: filteringAppNames)
