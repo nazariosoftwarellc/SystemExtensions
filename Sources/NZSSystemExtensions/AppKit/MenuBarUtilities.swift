@@ -31,12 +31,12 @@ public struct AboutAppButton: View {
 }
 
 public struct NZSMoreAppsButton: View {
-    private let title = "More Nazario Software Apps"
+    public static let title = "More Nazario Software Apps"
     
     let filteringAppNames: [String]
     
     public var body: some View {
-        Button("\(title)...") {
+        Button("\(NZSMoreAppsButton.title)...") {
             NZSMoreAppsButton.openMoreAppsPanel(filteringAppNames: filteringAppNames)
         }
     }
