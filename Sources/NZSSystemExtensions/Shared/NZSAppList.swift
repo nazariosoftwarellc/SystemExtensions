@@ -92,11 +92,14 @@ public struct NZSAppList: View {
             }) {
                 HStack {
                     if let appIconURL = getAppIconURL() {
-                        AsyncImage(url: appIconURL) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
+                        AsyncImage(url: appIconURL) { phase in
+                            if let image = phase.image {
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                            }
                         }
+                        .frame(width: 50, height: 50)
                     }
                     VStack(alignment: .leading) {
                         getColorHighlightedText(content: appLink.name, color: .blue)
