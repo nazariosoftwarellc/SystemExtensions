@@ -6,7 +6,7 @@ let package = Package(
     name: "NZSSystemExtensions",
     platforms: [
         .macOS(.v12),
-        .iOS(.v17),
+        .iOS(.v18),
         .macCatalyst(.v13),
         .watchOS(.v8)
     ],
