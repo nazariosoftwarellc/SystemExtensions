@@ -39,13 +39,13 @@ public final class NZSAppListViewModel: ObservableObject {
     
     @Published var appLinks: [NZSAppLink] = []
     
-    public init(filteringAppNames: [String] = []) {
+    public init(filteringAppIDs: [String] = []) {
         Task {
             do {
                 let appLinks = try await self.getAppLinks()
                 DispatchQueue.main.async {
                     self.appLinks = appLinks.filter { appLink in
-                        !filteringAppNames.contains(appLink.name)
+                        !filteringAppIDs.contains(appLink.id)
                     }
                 }
             } catch {
@@ -65,8 +65,8 @@ public final class NZSAppListViewModel: ObservableObject {
 public struct NZSAppList: View {
     @ObservedObject private var viewModel: NZSAppListViewModel
     
-    public init(filteringAppNames: [String] = []) {
-        self._viewModel = ObservedObject(wrappedValue: NZSAppListViewModel(filteringAppNames: filteringAppNames))
+    public init(filteringAppIDs: [String] = []) {
+        self._viewModel = ObservedObject(wrappedValue: NZSAppListViewModel(filteringAppIDs: filteringAppIDs))
     }
     
     public var body: some View {

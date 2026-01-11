@@ -33,21 +33,21 @@ public struct AboutAppButton: View {
 public struct NZSMoreAppsButton: View {
     public static let title = "More Nazario Software Apps"
     
-    let filteringAppNames: [String]
+    let filteringAppIDs: [String]
     
-    public init(filteringAppNames: [String]) {
-        self.filteringAppNames = filteringAppNames
+    public init(filteringAppIDs: [String]) {
+        self.filteringAppIDs = filteringAppIDs
     }
     
     public var body: some View {
         Button("\(NZSMoreAppsButton.title)...") {
-            NZSMoreAppsButton.openMoreAppsPanel(filteringAppNames: filteringAppNames)
+            NZSMoreAppsButton.openMoreAppsPanel(filteringAppIDs: filteringAppIDs)
         }
     }
     
-    public static func openMoreAppsPanel(filteringAppNames: [String]) {
+    public static func openMoreAppsPanel(filteringAppIDs: [String]) {
         let controller = NSHostingController(
-            rootView: NZSAppList(filteringAppNames: filteringAppNames)
+            rootView: NZSAppList(filteringAppIDs: filteringAppIDs)
                 .frame(width: 350, height: 250)
         )
         let window = NSWindow(contentViewController: controller)
