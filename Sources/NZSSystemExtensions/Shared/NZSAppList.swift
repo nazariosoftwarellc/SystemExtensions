@@ -16,10 +16,25 @@ typealias FrameworkApplication = UIApplication
 
 public final class NZSAppListViewModel: ObservableObject {
     struct NZSAppLink: Identifiable, Codable {
+        let id: String
         let name: String
         let href: String
         let description: String
-        var id: String { name }
+        let appStoreURL: String?
+        let githubURL: String?
+        let chromeStoreURL: String?
+        let firefoxStoreURL: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case href
+            case description
+            case appStoreURL = "appStoreUrl"
+            case githubURL = "githubUrl"
+            case chromeStoreURL = "chromeStoreUrl"
+            case firefoxStoreURL = "firefoxStoreUrl"
+        }
     }
     
     @Published var appLinks: [NZSAppLink] = []
@@ -40,7 +55,7 @@ public final class NZSAppListViewModel: ObservableObject {
     }
     
     private func getAppLinks() async throws -> [NZSAppLink] {
-        let appJSONURL = URL(string: "https://github.com/nazariosoftwarellc/nazariosoftwarellc.github.io/raw/refs/heads/main/assets/json/app-list.json")!
+        let appJSONURL = URL(string: "https://nazariosoftware.com/json/app-list.json")!
         let (data, _) = try await URLSession.shared.data(from: appJSONURL)
         let decoder = JSONDecoder()
         return try decoder.decode([NZSAppLink].self, from: data)
