@@ -81,6 +81,9 @@ public struct NZSAppList: View {
             .padding(.horizontal)
             .padding(.bottom)
             #endif
+            #if os(iOS)
+            .scrollContentBackground(.hidden)
+            #endif
         }
     }
     
