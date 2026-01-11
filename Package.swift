@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "NZSSystemExtensions",
     platforms: [
-        .macOS(.v10_15),
+        .macOS(.v12),
         .iOS(.v13),
         .macCatalyst(.v13),
         .watchOS(.v8)
