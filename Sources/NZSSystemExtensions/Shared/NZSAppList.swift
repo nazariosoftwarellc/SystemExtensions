@@ -77,8 +77,10 @@ public struct NZSAppList: View {
             List(viewModel.appLinks) { appLink in
                 AppLinkItem(appLink: appLink)
             }
+            #if os(macOS)
             .padding(.horizontal)
             .padding(.bottom)
+            #endif
         }
     }
     
