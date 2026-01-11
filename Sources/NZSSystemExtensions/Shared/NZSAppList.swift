@@ -108,7 +108,7 @@ public struct NZSAppList: View {
             .buttonStyle(PlainButtonStyle())
         }
         
-        private func getAppIconURL(): URL? {
+        private func getAppIconURL() -> URL? {
             URL(string: "https://nazariosoftware.com/img/\(appLink.id)-icon.webp")
         }
         
