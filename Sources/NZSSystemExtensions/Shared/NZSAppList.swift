@@ -90,13 +90,26 @@ public struct NZSAppList: View {
                 guard let url = URL(string: appLink.href) else { return }
                 FrameworkApplication.shared.open(url)
             }) {
-                VStack(alignment: .leading) {
-                    getColorHighlightedText(content: appLink.name, color: .blue)
-                    getColorHighlightedText(content: appLink.description, color: .secondary)
-                        .font(.caption)
+                HStack {
+                    if let appIconURL = getAppIconURL() {
+                        AsyncImage(url: appIconURL) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        }
+                    }
+                    VStack(alignment: .leading) {
+                        getColorHighlightedText(content: appLink.name, color: .blue)
+                        getColorHighlightedText(content: appLink.description, color: .secondary)
+                            .font(.caption)
+                    }
                 }
             }
             .buttonStyle(PlainButtonStyle())
+        }
+        
+        private func getAppIconURL(): URL? {
+            URL(string: "https://nazariosoftware.com/img/\(appLink.id)-icon.webp")
         }
         
         private func getColorHighlightedText(content: String, color: Color) -> some View {
