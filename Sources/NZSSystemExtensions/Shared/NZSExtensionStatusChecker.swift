@@ -10,7 +10,7 @@ import SafariServices
 import NZSSystemExtensions
 import Combine
 
-@available(macOS 26.2, iOS 26.2)
+@available(macOS 26.2, iOS 26.2, *)
 public struct NZSExtensionStatusCard: View {
     private let cardWidth: CGFloat = 180
     private let cardHeight: CGFloat = 260
@@ -22,7 +22,7 @@ public struct NZSExtensionStatusCard: View {
     let iconColor: Color
     let extensionId: String
     
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .center, spacing: 0) {
             VStack(alignment: .center, spacing: 8) {
                 Image(systemName: icon)
@@ -40,7 +40,7 @@ public struct NZSExtensionStatusCard: View {
             .padding()
             .frame(maxHeight: .infinity, alignment: .top)
             
-            ExtensionStatusChecker(extId: extensionId)
+            NZSExtensionStatusChecker(extId: extensionId)
         }
         .frame(width: cardWidth, height: cardHeight, alignment: .top)
         .background(.background)
@@ -52,17 +52,17 @@ public struct NZSExtensionStatusCard: View {
     }
 }
 
-@available(macOS 26.2, iOS 26.2)
+@available(macOS 26.2, iOS 26.2, *)
 public struct NZSExtensionStatusChecker: View {
     private let statusHeight: CGFloat = 44
     
-    @StateObject private var controller: ExtensionStatusCheckerController
+    @StateObject private var controller: NZSExtensionStatusCheckerController
     
     public init(extId: String) {
-        _controller = StateObject(wrappedValue: ExtensionStatusCheckerController(extensionId: extId))
+        _controller = StateObject(wrappedValue: NZSExtensionStatusCheckerController(extensionId: extId))
     }
     
-    var body: some View {
+    public var body: some View {
         extensionStatus
             .padding(.horizontal)
             .frame(maxWidth: .infinity, minHeight: statusHeight, alignment: .center)
@@ -110,7 +110,7 @@ public struct NZSExtensionStatusChecker: View {
     }
 }
 
-@available(macOS 26.2, iOS 26.2)
+@available(macOS 26.2, iOS 26.2, *)
 fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
     @Published private(set) var extensionEnabled = ExtensionState.loading
     private let extensionId: String
