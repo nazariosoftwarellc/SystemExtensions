@@ -22,6 +22,14 @@ public struct NZSExtensionStatusCard: View {
     let iconColor: Color
     let extensionId: String
     
+    public init(extensionName: String, extensionDescription: String, icon: String, iconColor: Color, extensionId: String) {
+        self.extensionName = extensionName
+        self.extensionDescription = extensionDescription
+        self.icon = icon
+        self.iconColor = iconColor
+        self.extensionId = extensionId
+    }
+    
     public var body: some View {
         VStack(alignment: .center, spacing: 0) {
             VStack(alignment: .center, spacing: 8) {
