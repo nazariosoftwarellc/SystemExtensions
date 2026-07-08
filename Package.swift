@@ -16,9 +16,7 @@ let package = Package(
             targets: ["NZSSystemExtensions"]
         )
     ],
-    dependencies: [
-        .enableExperimentalFeature("AnyAppleOSAvailability")
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "NZSSystemExtensions",

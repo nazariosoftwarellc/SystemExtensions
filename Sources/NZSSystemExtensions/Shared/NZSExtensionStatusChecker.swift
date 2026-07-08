@@ -10,7 +10,7 @@ import SafariServices
 import NZSSystemExtensions
 import Combine
 
-@available(anyAppleOS 26.2)
+@available(macOS 26.2, iOS 26.2)
 public struct NZSExtensionStatusCard: View {
     private let cardWidth: CGFloat = 180
     private let cardHeight: CGFloat = 260
@@ -52,7 +52,7 @@ public struct NZSExtensionStatusCard: View {
     }
 }
 
-@available(anyAppleOS 26.2)
+@available(macOS 26.2, iOS 26.2)
 public struct NZSExtensionStatusChecker: View {
     private let statusHeight: CGFloat = 44
     
@@ -110,7 +110,7 @@ public struct NZSExtensionStatusChecker: View {
     }
 }
 
-@available(anyAppleOS 26.2)
+@available(macOS 26.2, iOS 26.2)
 fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
     @Published private(set) var extensionEnabled = ExtensionState.loading
     private let extensionId: String
