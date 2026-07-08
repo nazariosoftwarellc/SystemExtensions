@@ -58,7 +58,7 @@ public struct NZSExtensionStatusChecker: View {
     
     @StateObject private var controller: ExtensionStatusCheckerController
     
-    init(extId: String) {
+    public init(extId: String) {
         _controller = StateObject(wrappedValue: ExtensionStatusCheckerController(extensionId: extId))
     }
     
@@ -115,7 +115,7 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
     @Published private(set) var extensionEnabled = ExtensionState.loading
     private let extensionId: String
     
-    init(extensionId: String) {
+    public init(extensionId: String) {
         self.extensionId = extensionId
         DispatchQueue.main.async {
             self.reloadEnabledStateOnBecomeActive()
