@@ -12,8 +12,6 @@ import Combine
 
 @available(macOS 26.2, iOS 26.2, *)
 public struct NZSExtensionStatusCard: View {
-    private let cardWidth: CGFloat = 180
-    private let cardHeight: CGFloat = 260
     private let iconSize: CGFloat = 68
     
     let extensionName: String
@@ -50,7 +48,6 @@ public struct NZSExtensionStatusCard: View {
             
             NZSExtensionStatusChecker(extId: extensionId)
         }
-        .frame(width: cardWidth, height: cardHeight, alignment: .top)
         .background(.background)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay {
