@@ -31,6 +31,8 @@ public struct NZSExtensionStatusCard: View {
     public var body: some View {
         VStack(alignment: .center, spacing: 0) {
             VStack(alignment: .center, spacing: 8) {
+                Spacer()
+                
                 Image(systemName: icon)
                     .font(.system(size: iconSize))
                     .foregroundStyle(iconColor)
@@ -42,6 +44,8 @@ public struct NZSExtensionStatusCard: View {
                 Text(extensionDescription)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.leading)
+                
+                Spacer()
             }
             .padding()
             .frame(maxHeight: .infinity, alignment: .top)
