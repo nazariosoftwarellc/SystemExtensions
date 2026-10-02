@@ -124,6 +124,8 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
         self.extensionId = extensionId
         DispatchQueue.main.async {
             self.reloadEnabledStateOnBecomeActive()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.loadExtensionEnabled()
         }
     }
@@ -132,7 +134,7 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
         Task {
             var newState = self.extensionEnabled
             do {
-                newState = try await loadExtensionState()
+                newState = try await getExtensionState()
             } catch {
                 print(error)
                 newState = .errored
@@ -143,7 +145,7 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
         }
     }
     
-    private func loadExtensionState() async throws -> ExtensionState {
+    private func getExtensionState() async -> ExtensionState {
         var errors: [Error] = []
         var blockerState: SFContentBlockerState? = nil
         var extensionState: SFSafariExtensionState? = nil
@@ -164,6 +166,7 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
             errors.append(error)
         }
         
+        print(errors)
         guard errors.count < 2 else { return .errored }
         let eitherEnabled = (blockerState?.isEnabled ?? false) || (extensionState?.isEnabled ?? false)
         return eitherEnabled ? .enabled : .disabled
