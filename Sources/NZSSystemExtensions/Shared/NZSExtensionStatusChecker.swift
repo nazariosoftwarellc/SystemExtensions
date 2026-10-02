@@ -77,10 +77,6 @@ public struct NZSExtensionStatusChecker: View {
             .frame(maxWidth: .infinity, minHeight: statusHeight, alignment: .center)
             .foregroundStyle(statusColor)
             .background(statusColor.opacity(0.16))
-            .background(
-                InvisibleView()
-                    .onAppear(perform: controller.loadExtensionEnabled)
-            )
     }
     
     @ViewBuilder
@@ -128,6 +124,7 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
         self.extensionId = extensionId
         DispatchQueue.main.async {
             self.reloadEnabledStateOnBecomeActive()
+            self.loadExtensionEnabled()
         }
     }
     
