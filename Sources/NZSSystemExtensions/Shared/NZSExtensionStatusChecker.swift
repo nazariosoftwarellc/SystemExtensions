@@ -139,9 +139,10 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
             defer { isChecking = false }
 
             // One immediate attempt followed by up to three retries.
-            for attempt in 0...3 {
+            let limit = 100
+            for attempt in 0...limit {
                 let newState = await getExtensionState()
-                if case .errored = newState, attempt < 3 {
+                if case .errored = newState, attempt < limit {
                     do {
                         try await Task.sleep(nanoseconds: 1_500_000_000)
                     } catch {
