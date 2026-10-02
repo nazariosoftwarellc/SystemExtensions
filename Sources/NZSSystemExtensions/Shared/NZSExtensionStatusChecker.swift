@@ -162,11 +162,11 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
         var blockerState: SFContentBlockerState? = nil
         var extensionState: SFSafariExtensionState? = nil
         
-        do {
-            blockerState = try await SFContentBlockerManager.stateOfContentBlocker(withIdentifier: extensionId)
-        } catch {
-            errors.append(error)
-        }
+//        do {
+//            blockerState = try await SFContentBlockerManager.stateOfContentBlocker(withIdentifier: extensionId)
+//        } catch {
+//            errors.append(error)
+//        }
         
         do {
             #if os(macOS)
