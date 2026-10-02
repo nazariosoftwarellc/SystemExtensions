@@ -96,8 +96,6 @@ public struct NZSExtensionStatusChecker: View {
                 controller.openSafariPrefs()
             }
             .buttonStyle(BorderedButtonStyle())
-        case .errored:
-            Text("Error")
         default:
             ProgressView()
         }
@@ -107,8 +105,6 @@ public struct NZSExtensionStatusChecker: View {
         switch controller.extensionEnabled {
         case .enabled:
             .green
-        case .errored:
-            .red
         default:
             .gray
         }
@@ -147,51 +143,49 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
         Task {
             defer { isChecking = false }
 
-            // One immediate attempt followed by up to three retries.
-            let limit = 3
-            for attempt in 0...limit {
-                let newState = await getExtensionState()
-                if case .errored = newState, attempt < limit {
+            let retryCount = 3
+            for attempt in 0...retryCount {
+                do {
+                    extensionEnabled = try await getExtensionState()
+                    return
+                } catch {
+                    print(error)
+                    if attempt == retryCount {
+                        extensionEnabled = .disabled
+                        return
+                    }
+
                     do {
                         try await Task.sleep(nanoseconds: 1_500_000_000)
                     } catch {
                         return
                     }
-                    continue
                 }
-
-                extensionEnabled = newState
-                return
             }
         }
     }
     
-    private func getExtensionState() async -> ExtensionState {
-        do {
-            let isEnabled: Bool
-            if isBlocker {
-                let state = try await SFContentBlockerManager.stateOfContentBlocker(
-                    withIdentifier: extensionId
-                )
-                isEnabled = state.isEnabled
-            } else {
-                #if os(macOS)
-                let state = try await SFSafariExtensionManager.stateOfSafariExtension(
-                    withIdentifier: extensionId
-                )
-                #else
-                let state = try await SFSafariExtensionManager.stateOfExtension(
-                    withIdentifier: extensionId
-                )
-                #endif
-                isEnabled = state.isEnabled
-            }
-
-            return isEnabled ? .enabled : .disabled
-        } catch {
-            print(error)
-            return .errored
+    private func getExtensionState() async throws -> ExtensionState {
+        let isEnabled: Bool
+        if isBlocker {
+            let state = try await SFContentBlockerManager.stateOfContentBlocker(
+                withIdentifier: extensionId
+            )
+            isEnabled = state.isEnabled
+        } else {
+            #if os(macOS)
+            let state = try await SFSafariExtensionManager.stateOfSafariExtension(
+                withIdentifier: extensionId
+            )
+            #else
+            let state = try await SFSafariExtensionManager.stateOfExtension(
+                withIdentifier: extensionId
+            )
+            #endif
+            isEnabled = state.isEnabled
         }
+
+        return isEnabled ? .enabled : .disabled
     }
     
     func openSafariPrefs() {
@@ -211,7 +205,6 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
         case enabled
         case disabled
         case loading
-        case errored
     }
     
     private func reloadEnabledStateOnBecomeActive() {
