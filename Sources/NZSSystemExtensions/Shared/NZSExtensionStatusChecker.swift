@@ -116,31 +116,42 @@ public struct NZSExtensionStatusChecker: View {
 }
 
 @available(macOS 26.2, iOS 26.2, *)
+@MainActor
 fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
     @Published private(set) var extensionEnabled = ExtensionState.loading
     private let extensionId: String
+    private var isChecking = false
     
     public init(extensionId: String) {
         self.extensionId = extensionId
         DispatchQueue.main.async {
             self.reloadEnabledStateOnBecomeActive()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.loadExtensionEnabled()
         }
     }
     
     func loadExtensionEnabled() {
+        // Startup and activation can request a check at the same time.
+        guard !isChecking else { return }
+        isChecking = true
+
         Task {
-            var newState = self.extensionEnabled
-            do {
-                newState = try await getExtensionState()
-            } catch {
-                print(error)
-                newState = .errored
-            }
-            DispatchQueue.main.async {
-                self.extensionEnabled = newState
+            defer { isChecking = false }
+
+            // One immediate attempt followed by up to three retries.
+            for attempt in 0...3 {
+                let newState = await getExtensionState()
+                if case .errored = newState, attempt < 3 {
+                    do {
+                        try await Task.sleep(nanoseconds: 1_500_000_000)
+                    } catch {
+                        return
+                    }
+                    continue
+                }
+
+                extensionEnabled = newState
+                return
             }
         }
     }
@@ -166,7 +177,6 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
             errors.append(error)
         }
         
-        print(errors)
         guard errors.count < 2 else { return .errored }
         let eitherEnabled = (blockerState?.isEnabled ?? false) || (extensionState?.isEnabled ?? false)
         return eitherEnabled ? .enabled : .disabled
@@ -199,7 +209,9 @@ fileprivate class NZSExtensionStatusCheckerController: ObservableObject {
         let notificationName = UIApplication.didBecomeActiveNotification
         #endif
         NotificationCenter.default.addObserver(forName: notificationName, object: nil, queue: .main) { _ in
-            self.loadExtensionEnabled()
+            Task { @MainActor in
+                self.loadExtensionEnabled()
+            }
         }
     }
 }
